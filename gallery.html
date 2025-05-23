@@ -1,0 +1,65 @@
+
+
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Interactive Image Gallery</title>
+    <link rel="stylesheet" href="gallery.css">
+</head>
+<body>
+    <div class="full-img" id="fullImgBox">
+        <img id="fullImg" src="">
+        <span class="close-btn" onclick="closeFullImg()">✕</span>
+        <button class="nav-btn left" onclick="prevImg()">⟨</button>
+        <button class="nav-btn right" onclick="nextImg()">⟩</button>
+    </div>
+
+    <div class="img-gallery" id="gallery">
+        <img src="https://cdn.britannica.com/36/162636-131-E4AA93A0/Colosseum-Rome-Italy.jpg" onclick="openFullImg(0)">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcSHC-Pe9xxy2uF6aiKsakCS-eLaIw0oqF1OQg&s" onclick="openFullImg(1)">
+        <img src="https://cdn.britannica.com/25/153525-050-FC43840D/Khaznah-Petra-Jordan.jpg" onclick="openFullImg(2)">
+        <img src="https://images.unsplash.com/photo-1545562083-c583d014b4f2?fm=jpg&q=60&w=3000&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxzZWFyY2h8Mnx8NyUyMHdvbmRlcnMlMjBvZiUyMHRoZSUyMHdvcmxkfGVufDB8fDB8fHww" onclick="openFullImg(3)">
+        <img src="https://images.pexels.com/photos/28251098/pexels-photo-28251098.jpeg?cs=srgb&dl=pexels-tomalbhattacharjee-28251098.jpg&fm=jpg" onclick="openFullImg(4)">
+        <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcQlE__2jx_2RrxMINu2YTq1rDgnMQy9um39yg&s" onclick="openFullImg(5)">
+    </div>
+
+    <script>
+        const fullImgBox = document.getElementById("fullImgBox");
+        const fullImg = document.getElementById("fullImg");
+        const galleryImgs = document.querySelectorAll(".img-gallery img");
+        let currentImgIndex = 0;
+
+        function openFullImg(index) {
+            currentImgIndex = index;
+            fullImgBox.style.display = "flex";
+            fullImg.src = galleryImgs[currentImgIndex].src;
+        }
+
+        function closeFullImg() {
+            fullImgBox.style.display = "none";
+        }
+
+        function nextImg() {
+            currentImgIndex = (currentImgIndex + 1) % galleryImgs.length;
+            fullImg.src = galleryImgs[currentImgIndex].src;
+        }
+
+        function prevImg() {
+            currentImgIndex = (currentImgIndex - 1 + galleryImgs.length) % galleryImgs.length;
+            fullImg.src = galleryImgs[currentImgIndex].src;
+        }
+
+    
+        document.addEventListener("keydown", function(e) {
+            if (fullImgBox.style.display === "flex") {
+                if (e.key === "ArrowRight") nextImg();
+                if (e.key === "ArrowLeft") prevImg();
+                if (e.key === "Escape") closeFullImg();
+            }
+        });
+    </script>
+</body>
+</html>
